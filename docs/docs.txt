@@ -1,0 +1,16 @@
+O que foi feito
+
+Durante a atividade, foram realizadas melhorias no sistema de controle de almoxarifado que já existia.
+Primeiramente, foi implementado um sistema de login para controlar o acesso. Também foram criados dois tipos de usuários: Administrador e Operador.
+O Administrador possui acesso às funções de consulta, cadastro, atualização e exclusão. Já o Operador pode consultar, cadastrar e atualizar informações, sem ter permissão para excluir registros.
+Na parte do estoque, foi implementada uma verificação para impedir que sejam realizadas saídas com uma quantidade maior do que a disponível. Dessa forma, o sistema evita que o estoque fique com saldo negativo.
+Também foram realizados ajustes no registro das movimentações, armazenando informações como o tipo de movimentação, a quantidade, a data e o usuário responsável.
+Outra melhoria foi a atualização automática da quantidade em estoque sempre que uma entrada ou saída é registrada.
+
+Banco de dados
+O banco de dados foi preparado para armazenar os usuários, os produtos e as movimentações. Também foram adicionados os campos necessários para controlar os perfis de acesso e registrar as informações das operações.
+
+Testes
+Foi preparado um plano de testes e um documento para registrar os resultados. A ideia é verificar se o login funciona, se cada perfil respeita suas permissões e se as movimentações atualizam o estoque corretamente.
+
+Basicamente é isso.
