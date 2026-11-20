@@ -1,16 +1,83 @@
-O que foi feito
+# Sistema de Controle de Almoxarifado
 
-Durante a atividade, foram realizadas melhorias no sistema de controle de almoxarifado que já existia.
-Primeiramente, foi implementado um sistema de login para controlar o acesso. Também foram criados dois tipos de usuários: Administrador e Operador.
-O Administrador possui acesso às funções de consulta, cadastro, atualização e exclusão. Já o Operador pode consultar, cadastrar e atualizar informações, sem ter permissão para excluir registros.
-Na parte do estoque, foi implementada uma verificação para impedir que sejam realizadas saídas com uma quantidade maior do que a disponível. Dessa forma, o sistema evita que o estoque fique com saldo negativo.
-Também foram realizados ajustes no registro das movimentações, armazenando informações como o tipo de movimentação, a quantidade, a data e o usuário responsável.
-Outra melhoria foi a atualização automática da quantidade em estoque sempre que uma entrada ou saída é registrada.
+## Sobre o projeto
 
-Banco de dados
-O banco de dados foi preparado para armazenar os usuários, os produtos e as movimentações. Também foram adicionados os campos necessários para controlar os perfis de acesso e registrar as informações das operações.
+O projeto consiste em melhorar um sistema de controle de almoxarifado que já existia, buscando facilitar o acompanhamento dos produtos e tornar o controle do estoque mais seguro.
 
-Testes
-Foi preparado um plano de testes e um documento para registrar os resultados. A ideia é verificar se o login funciona, se cada perfil respeita suas permissões e se as movimentações atualizam o estoque corretamente.
+Uma das principais mudanças foi a criação de um sistema de login, permitindo identificar quem está utilizando o sistema e controlar o que cada usuário pode fazer.
 
-Basicamente é isso.
+## Funcionamento do sistema
+
+O sistema possui dois tipos de usuários:
+
+- **Administrador:** pode consultar, cadastrar, atualizar e excluir informações.
+- **Operador:** pode consultar, cadastrar e atualizar informações, mas não pode excluir registros.
+
+Também foi implementado o cadastro de novos usuários, que são registrados inicialmente com o perfil de Operador.
+
+Na parte do estoque, o sistema permite registrar entradas e saídas de produtos. Sempre que uma movimentação é realizada, a quantidade disponível é atualizada automaticamente.
+
+Para evitar problemas no controle dos produtos, o sistema verifica a quantidade disponível antes de permitir uma saída. Caso não exista saldo suficiente, a operação é bloqueada e uma mensagem informa a quantidade disponível.
+
+As movimentações também ficam registradas com informações sobre o produto, tipo de operação, quantidade, data e usuário responsável.
+
+## Organização do projeto
+
+Os arquivos foram separados de acordo com suas responsabilidades, facilitando a manutenção e a localização das funcionalidades.
+
+- `login.php`: realiza o acesso ao sistema.
+- `cadastro.php`: permite criar uma conta de operador.
+- `auth.php`: controla a autenticação e as permissões.
+- `usuarios.php`: apresenta os usuários cadastrados.
+- `usuario_form.php`: permite cadastrar e editar usuários pelo administrador.
+- `produtos.php`: apresenta os produtos cadastrados.
+- `produto_form.php`: permite cadastrar e atualizar produtos.
+- `movimentacoes.php`: apresenta o histórico de movimentações.
+- `movimentacao_form.php`: registra entradas e saídas.
+- `estoque.php`: apresenta as informações do estoque.
+- `conexao.php`: realiza a conexão com o banco de dados.
+- `sql/empresa.sql`: contém a estrutura e os dados iniciais do banco.
+
+## Banco de dados
+
+O banco de dados utilizado é o MySQL, com três tabelas principais:
+
+- `user`: armazena os dados dos usuários e seus perfis.
+- `produto`: armazena os produtos e suas quantidades em estoque.
+- `movimentacao`: registra as entradas e saídas realizadas.
+
+As tabelas possuem relacionamentos para identificar os produtos e os usuários envolvidos em cada movimentação.
+
+## Segurança
+
+As senhas dos usuários são armazenadas utilizando o recurso `password_hash()` do PHP, evitando salvar as senhas diretamente no banco de dados.
+
+Também são utilizadas sessões para manter o usuário autenticado e verificar suas permissões antes de acessar determinadas funcionalidades.
+
+Nas operações com o banco de dados são utilizadas consultas preparadas com PDO.
+
+## Como preparar o sistema
+
+1. Ter o XAMPP instalado e iniciar o Apache e o MySQL.
+2. Colocar a pasta do projeto dentro do diretório `htdocs`.
+3. Acessar o phpMyAdmin e importar o arquivo `sql/empresa.sql`.
+4. Conferir as configurações de conexão no arquivo `conexao.php`.
+5. Abrir o sistema pelo navegador utilizando o endereço local do projeto.
+
+**Atenção:** o arquivo SQL começa removendo e recriando o banco `empresa`. Portanto, sua importação apaga os dados anteriores desse banco.
+
+## Testes
+
+Foi preparado um plano de testes para verificar o funcionamento do login, as permissões de cada perfil, o registro das movimentações e a atualização do estoque.
+
+Entre os principais cenários estão testar uma saída permitida, tentar retirar uma quantidade maior do que a disponível e verificar se o sistema impede que o estoque fique negativo.
+
+Os resultados e as evidências devem ser registrados após a execução dos testes.
+
+## Considerações finais
+
+As alterações foram feitas com o objetivo de melhorar o controle dos produtos e organizar o acesso ao sistema.
+
+Com as novas funcionalidades, o almoxarifado passa a ter um controle mais claro das movimentações, dos usuários e das quantidades disponíveis em estoque.
+
+Basicamente seria isso.
